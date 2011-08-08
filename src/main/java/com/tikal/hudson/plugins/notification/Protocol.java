@@ -64,6 +64,12 @@ public enum Protocol {
 					HttpURLConnection httpURLConnection = (HttpURLConnection) connection;
 					httpURLConnection.setRequestMethod("PUT");
 					httpURLConnection.setDoOutput(true);
+
+                    /* By default, HTTPUrlConnection sends an Accept header
+                     * containing "*; q=0.2", which is invalid as per the HTTP 1.1 spec.
+                     */
+                    httpURLConnection.setRequestProperty("Accept", "*/*");
+
 					OutputStream output = httpURLConnection.getOutputStream();
 					output.write(data);
 					output.flush();
